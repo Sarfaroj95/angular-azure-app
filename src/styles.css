@@ -1,3 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import 'tailwindcss';
+
+@theme {
+  --color-brand-oxford: #03256c;
+  --color-brand-royal: #2541b2;
+  --color-brand-cobalt: #1768ac;
+  --color-brand-cyan: #06bee1;
+  --color-brand-white: #ffffff;
+}
+
+/* Slim & Theme-Adaptive Auto-Hiding Scrollbar */
+html,
+body,
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(23, 104, 172, 0.4) transparent;
+}
+
+/* Chrome, Edge, Safari WebKit Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(23, 104, 172, 0.35);
+  border-radius: 9999px;
+  transition: background-color 0.25s ease-in-out;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #06bee1;
+  box-shadow: 0 0 8px rgba(6, 190, 225, 0.5);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}

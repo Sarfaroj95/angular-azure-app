@@ -1,0 +1,268 @@
+<div
+  [class]="isDarkMode() ? 'bg-[#03256c] text-[#ffffff] selection:bg-[#06bee1] selection:text-[#03256c]' : 'bg-slate-100 text-[#03256c] selection:bg-[#2541b2] selection:text-white'"
+  class="min-h-screen flex flex-col font-sans transition-colors duration-300 relative overflow-hidden"
+>
+  <!-- Background Glow Accents -->
+  <div class="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-[#06bee1]/10 blur-3xl pointer-events-none"></div>
+  <div class="absolute -bottom-40 -right-40 w-96 h-96 rounded-full bg-[#2541b2]/30 blur-3xl pointer-events-none"></div>
+
+  <!-- Top Navigation / Header for Login Page (Portal Purpose & Meaning) -->
+  <header
+    [class]="isDarkMode() ? 'bg-[#03256c]/85 border-[#1768ac]/50' : 'bg-white/85 border-[#1768ac]/20 shadow-sm'"
+    class="backdrop-blur-md border-b py-3 transition-all duration-300 z-10"
+  >
+    <div class="max-w-7xl w-full mx-auto px-4 sm:px-6 flex items-center justify-between gap-4">
+      <!-- Brand Logo & Descriptive Portal Meaning -->
+      <div class="flex items-center gap-3">
+        <div class="h-10 w-10 rounded-xl bg-gradient-to-tr from-[#2541b2] to-[#06bee1] flex items-center justify-center shadow-md shadow-[#06bee1]/20 border border-[#06bee1]/30 shrink-0">
+          <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
+          </svg>
+        </div>
+        <div class="flex flex-col">
+          <div class="flex items-center gap-2">
+            <span [class]="isDarkMode() ? 'text-white' : 'text-[#03256c]'" class="text-lg font-extrabold tracking-tight">
+              Sarfaroj Portal
+            </span>
+            <span
+              [class]="isDarkMode() ? 'bg-[#06bee1]/15 text-[#06bee1] border-[#06bee1]/30' : 'bg-[#2541b2]/10 text-[#2541b2] border-[#2541b2]/20'"
+              class="hidden sm:inline-flex text-[10px] font-bold px-2 py-0.5 rounded-full border uppercase tracking-wider"
+            >
+              Auth Gateway
+            </span>
+          </div>
+          <span [class]="isDarkMode() ? 'text-white/70' : 'text-[#1768ac]'" class="text-xs hidden md:block">
+            Centralized Hub for Cloud Services, Developer Tools & Learning Portals
+          </span>
+        </div>
+      </div>
+
+      <!-- Right Header Actions (Theme Toggle) -->
+      <div class="flex items-center gap-3">
+        <button
+          type="button"
+          (click)="toggleTheme()"
+          [class]="isDarkMode() ? 'bg-[#2541b2]/40 border-[#1768ac] text-[#06bee1]' : 'bg-slate-200/80 border-slate-300 text-[#2541b2]'"
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold shadow-sm cursor-pointer"
+        >
+          @if (isDarkMode()) {
+            <svg class="w-3.5 h-3.5 text-[#06bee1]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+            </svg>
+            <span class="text-white text-[11px]">Dark</span>
+          } @else {
+            <svg class="w-3.5 h-3.5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+            </svg>
+            <span class="text-[#03256c] text-[11px]">Light</span>
+          }
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Centered Login Card -->
+  <main class="flex-1 flex items-center justify-center p-4 sm:p-6 z-10">
+    <div
+      [class]="
+        isDarkMode()
+          ? 'bg-[#2541b2]/30 border-[#1768ac]/60 shadow-2xl shadow-[#03256c]/80'
+          : 'bg-white border-[#1768ac]/20 shadow-xl shadow-slate-200'
+      "
+      class="w-full max-w-md rounded-2xl border p-6 sm:p-8 backdrop-blur-xl transition-all duration-300"
+    >
+      <!-- Card Header -->
+      <div class="text-center mb-6">
+        <div class="inline-flex h-14 w-14 rounded-2xl bg-gradient-to-tr from-[#2541b2] to-[#06bee1] items-center justify-center shadow-lg shadow-[#06bee1]/25 border border-[#06bee1]/40 mb-3">
+          <svg class="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+          </svg>
+        </div>
+        <h1
+          [class]="isDarkMode() ? 'text-white' : 'text-[#03256c]'"
+          class="text-2xl font-extrabold tracking-tight"
+        >
+          Sign In
+        </h1>
+        <p [class]="isDarkMode() ? 'text-white/70' : 'text-[#1768ac]'" class="text-xs sm:text-sm mt-1">
+          Access your developer dashboard, cloud projects & resources
+        </p>
+      </div>
+
+      <!-- Error Notification Banner -->
+      @if (errorMessage()) {
+        <div
+          class="mb-5 p-3.5 rounded-xl bg-red-500/15 border border-red-500/40 text-red-400 flex items-start gap-2.5 animate-fadeIn"
+          role="alert"
+        >
+          <svg class="w-5 h-5 text-red-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+          </svg>
+          <div class="flex-1 text-xs sm:text-sm leading-snug">
+            <span class="font-bold block text-red-300 mb-0.5">Authentication Failed</span>
+            {{ errorMessage() }}
+          </div>
+          <button
+            type="button"
+            (click)="errorMessage.set(null)"
+            class="text-red-400 hover:text-white p-0.5"
+            aria-label="Dismiss error"
+          >
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      }
+
+      <!-- Login Form -->
+      <form (ngSubmit)="onSubmit()" class="space-y-4">
+        <!-- Username Field -->
+        <div>
+          <label
+            [class]="isDarkMode() ? 'text-white/90' : 'text-[#03256c]'"
+            class="block text-xs font-bold mb-1.5 tracking-wide uppercase"
+            for="username"
+          >
+            Username
+          </label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-[#1768ac]">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+              </svg>
+            </span>
+            <input
+              id="username"
+              type="text"
+              name="username"
+              [ngModel]="username()"
+              (ngModelChange)="username.set($event)"
+              placeholder="admin"
+              required
+              [disabled]="isLoading()"
+              [class]="
+                isDarkMode()
+                  ? 'bg-[#03256c]/70 border-[#1768ac]/60 text-white placeholder-white/40 focus:border-[#06bee1] focus:ring-[#06bee1]/20'
+                  : 'bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400 focus:border-[#2541b2] focus:ring-[#2541b2]/20'
+              "
+              class="w-full pl-9 pr-3.5 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 transition-all"
+            />
+          </div>
+        </div>
+
+        <!-- Password Field -->
+        <div>
+          <label
+            [class]="isDarkMode() ? 'text-white/90' : 'text-[#03256c]'"
+            class="block text-xs font-bold mb-1.5 tracking-wide uppercase"
+            for="password"
+          >
+            Password
+          </label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-[#1768ac]">
+              <svg class="w-4 h-4 fill-none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+              </svg>
+            </span>
+            <input
+              id="password"
+              [type]="showPassword() ? 'text' : 'password'"
+              name="password"
+              [ngModel]="password()"
+              (ngModelChange)="password.set($event)"
+              placeholder="••••••••"
+              required
+              [disabled]="isLoading()"
+              [class]="
+                isDarkMode()
+                  ? 'bg-[#03256c]/70 border-[#1768ac]/60 text-white placeholder-white/40 focus:border-[#06bee1] focus:ring-[#06bee1]/20'
+                  : 'bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400 focus:border-[#2541b2] focus:ring-[#2541b2]/20'
+              "
+              class="w-full pl-9 pr-10 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 transition-all"
+            />
+            <button
+              type="button"
+              (click)="togglePasswordVisibility()"
+              class="absolute inset-y-0 right-0 flex items-center pr-3 text-[#1768ac] hover:text-[#06bee1] transition-colors cursor-pointer"
+              [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'"
+            >
+              @if (showPassword()) {
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+                </svg>
+              } @else {
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              }
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick Demo Credentials Hint Button -->
+        <div class="pt-1">
+          <button
+            type="button"
+            (click)="fillDemoCredentials()"
+            [class]="
+              isDarkMode()
+                ? 'bg-[#03256c]/90 border-[#1768ac]/40 text-[#06bee1] hover:bg-[#03256c] hover:border-[#06bee1]'
+                : 'bg-slate-100 border-slate-200 text-[#2541b2] hover:bg-slate-200'
+            "
+            class="w-full text-[11px] py-1.5 px-2.5 rounded-lg border flex items-center justify-between font-mono cursor-pointer transition-all"
+          >
+            <span class="flex items-center gap-1.5">
+              <span class="h-1.5 w-1.5 rounded-full bg-[#06bee1]"></span>
+              Demo: <b>admin</b> / <b>password</b>
+            </span>
+            <span class="underline text-[10px]">Auto-fill</span>
+          </button>
+        </div>
+
+        <!-- Submit Button with Loading Spinner -->
+        <div class="pt-2">
+          <button
+            type="submit"
+            [disabled]="isLoading()"
+            [class]="
+              isLoading()
+                ? 'bg-[#1768ac] opacity-75 cursor-not-allowed'
+                : 'bg-gradient-to-r from-[#2541b2] to-[#06bee1] hover:from-[#1768ac] hover:to-[#06bee1] shadow-lg shadow-[#06bee1]/20 hover:shadow-xl hover:shadow-[#06bee1]/30 cursor-pointer active:scale-[0.99]'
+            "
+            class="w-full py-2.5 px-4 rounded-xl text-white font-bold text-sm flex items-center justify-center gap-2 transition-all duration-200"
+          >
+            @if (isLoading()) {
+              <!-- Loading Spinner SVG -->
+              <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <span>Verifying credentials...</span>
+            } @else {
+              <span>Sign In</span>
+              <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            }
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer
+    [class]="isDarkMode() ? 'border-[#1768ac]/40 text-white/50 bg-[#03256c]/60' : 'border-slate-200 text-slate-400 bg-white/60'"
+    class="border-t py-3.5 text-center text-xs transition-colors duration-300 z-10"
+  >
+    <div class="max-w-7xl w-full mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <p>© 2026 Sarfaroj. All rights reserved.</p>
+      <p [class]="isDarkMode() ? 'text-[#06bee1]/80' : 'text-[#2541b2]/80'" class="font-medium text-[11px]">
+        Built with Angular 21 & Tailwind CSS
+      </p>
+    </div>
+  </footer>
+</div>

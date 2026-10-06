@@ -1,0 +1,149 @@
+<div
+  [class]="isDarkMode() ? 'bg-[#03256c] text-[#ffffff] selection:bg-[#06bee1] selection:text-[#03256c]' : 'bg-slate-100 text-[#03256c] selection:bg-[#2541b2] selection:text-white'"
+  class="min-h-screen flex flex-col font-sans transition-colors duration-300"
+>
+  <!-- Separate Header Component -->
+  <app-header [isDarkMode]="isDarkMode()" (themeToggle)="toggleTheme()" />
+
+  <!-- Main Content -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8">
+    <!-- Header Section: Title, Subtitle & Group Filters -->
+    <div class="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div>
+        <h1
+          [class]="isDarkMode() ? 'text-white' : 'text-[#03256c]'"
+          class="text-2xl sm:text-3xl font-extrabold tracking-tight mb-1.5 transition-colors duration-300"
+        >
+          Featured Cards
+        </h1>
+        <p
+          [class]="isDarkMode() ? 'text-white/70' : 'text-[#1768ac]'"
+          class="text-sm max-w-xl transition-colors duration-300"
+        >
+          Browse cards filtered by group: Quick access, Development, Learning resources, and Projects.
+        </p>
+      </div>
+
+      <!-- Category Filter Pills (Group Wise) -->
+      <div class="flex items-center flex-wrap gap-2">
+        @for (category of categories; track category) {
+          <button
+            type="button"
+            (click)="selectCategory(category)"
+            [class]="
+              selectedCategory() === category
+                ? (isDarkMode()
+                    ? 'bg-[#06bee1] text-[#03256c] shadow-lg shadow-[#06bee1]/20 font-bold'
+                    : 'bg-[#2541b2] text-white shadow-md font-bold')
+                : (isDarkMode()
+                    ? 'bg-[#2541b2]/30 border-[#1768ac]/50 text-white/80 hover:text-white hover:bg-[#2541b2]/60'
+                    : 'bg-white border-slate-200 text-slate-700 hover:text-[#03256c] hover:bg-slate-50')
+            "
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs transition-all duration-200 cursor-pointer"
+          >
+            <span>{{ category }}</span>
+            <span
+              [class]="
+                selectedCategory() === category
+                  ? (isDarkMode() ? 'bg-[#03256c]/20 text-[#03256c]' : 'bg-white/20 text-white')
+                  : (isDarkMode() ? 'bg-[#03256c]/80 text-[#06bee1]' : 'bg-slate-100 text-slate-600')
+              "
+              class="px-1.5 py-0.2 rounded-full text-[10px] font-semibold"
+            >
+              {{ getCategoryCount(category) }}
+            </span>
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      @for (card of filteredCards(); track card.id) {
+        <div
+          [class]="
+            isDarkMode()
+              ? 'bg-[#2541b2]/30 border-[#1768ac]/50 hover:bg-[#2541b2]/50 hover:border-[#06bee1] hover:shadow-[#06bee1]/10'
+              : 'bg-white border-[#1768ac]/20 hover:border-[#2541b2] hover:shadow-[#2541b2]/10 shadow-sm'
+          "
+          class="group relative flex flex-col justify-between rounded-xl border p-4 shadow-md backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+        >
+          <!-- Top Content Area -->
+          <div>
+            <!-- Card Header: Category Badge & ID -->
+            <div class="flex items-center justify-between mb-3">
+              <!-- Category Badge -->
+              <span
+                [class]="
+                  card.category === 'Quick'
+                    ? (isDarkMode() ? 'bg-amber-400/10 text-amber-300 border-amber-400/30' : 'bg-amber-50 text-amber-700 border-amber-200')
+                    : card.category === 'Development'
+                    ? (isDarkMode() ? 'bg-[#06bee1]/10 text-[#06bee1] border-[#06bee1]/30' : 'bg-cyan-50 text-cyan-700 border-cyan-200')
+                    : card.category === 'Learn'
+                    ? (isDarkMode() ? 'bg-emerald-400/10 text-emerald-300 border-emerald-400/30' : 'bg-emerald-50 text-emerald-700 border-emerald-200')
+                    : (isDarkMode() ? 'bg-purple-400/10 text-purple-300 border-purple-400/30' : 'bg-purple-50 text-purple-700 border-purple-200')
+                "
+                class="inline-flex items-center text-[10px] font-bold px-2 py-0.5 rounded-full border tracking-wide uppercase"
+              >
+                {{ card.category }}
+              </span>
+
+              <!-- Card ID -->
+              <span
+                [class]="isDarkMode() ? 'text-white/40' : 'text-slate-400'"
+                class="text-[11px] font-mono font-medium"
+              >
+                #{{ card.id }}
+              </span>
+            </div>
+
+            <!-- Card Title -->
+            <h2
+              [class]="isDarkMode() ? 'text-white group-hover:text-[#06bee1]' : 'text-[#03256c] group-hover:text-[#2541b2]'"
+              class="text-base font-bold mb-2 transition-colors duration-200 line-clamp-1"
+            >
+              {{ card.title }}
+            </h2>
+
+            <!-- Short Description -->
+            <p
+              [class]="isDarkMode() ? 'text-white/70 group-hover:text-white/90' : 'text-slate-600 group-hover:text-slate-900'"
+              class="text-xs leading-relaxed mb-4 line-clamp-3 transition-colors duration-200"
+            >
+              {{ card.description }}
+            </p>
+          </div>
+
+          <!-- Bottom Section: Open Link with Right Arrow Icon -->
+          <div
+            [class]="isDarkMode() ? 'border-[#1768ac]/40' : 'border-slate-200'"
+            class="pt-3 border-t transition-colors duration-300"
+          >
+            <a
+              [href]="card.link"
+              target="_blank"
+              rel="noopener noreferrer"
+              [class]="isDarkMode() ? 'text-[#06bee1] hover:text-white' : 'text-[#2541b2] hover:text-[#03256c]'"
+              class="inline-flex items-center gap-1.5 text-xs font-semibold transition-colors duration-200"
+            >
+              <span>Open link</span>
+              <svg
+                [class]="isDarkMode() ? 'text-[#06bee1] group-hover:text-white' : 'text-[#2541b2] group-hover:text-[#03256c]'"
+                class="w-3.5 h-3.5 transition-all duration-200 group-hover:translate-x-1"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2.2"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      }
+    </div>
+  </main>
+
+  <!-- Separate Footer Component -->
+  <app-footer [isDarkMode]="isDarkMode()" />
+</div>

@@ -1,0 +1,11 @@
+<footer
+  [class]="isDarkMode() ? 'border-[#1768ac]/40 text-white/60 bg-[#03256c]/50' : 'border-slate-200 text-slate-500 bg-white/60'"
+  class="border-t py-4 text-center text-xs transition-colors duration-300"
+>
+  <div class="max-w-7xl w-full mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-2">
+    <p>© 2026 Sarfaroj. All rights reserved.</p>
+    <p [class]="isDarkMode() ? 'text-[#06bee1]/80' : 'text-[#2541b2]/80'" class="font-medium text-[11px]">
+      Built with Angular 21 & Tailwind CSS
+    </p>
+  </div>
+</footer>
