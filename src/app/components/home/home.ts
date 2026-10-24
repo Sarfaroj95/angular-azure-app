@@ -1,6 +1,7 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { Header } from '../header/header';
 import { Footer } from '../footer/footer';
+import { ThemeService } from '../../services/theme.service';
 
 export interface CardItem {
   id: number;
@@ -17,7 +18,9 @@ export interface CardItem {
   styleUrl: './home.css',
 })
 export class Home {
-  isDarkMode = signal<boolean>(true);
+  private themeService = inject(ThemeService);
+
+  isDarkMode = this.themeService.isDarkMode;
   selectedCategory = signal<string>('All');
 
   categories = ['All', 'Quick', 'Development', 'Learn', 'Project'] as const;
@@ -185,6 +188,6 @@ export class Home {
   }
 
   toggleTheme(): void {
-    this.isDarkMode.update((dark) => !dark);
+    this.themeService.toggleTheme();
   }
 }

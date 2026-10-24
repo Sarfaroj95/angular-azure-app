@@ -1,5 +1,6 @@
 import { Component, inject, input, output } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-header',
@@ -9,8 +10,9 @@ import { AuthService } from '../../services/auth.service';
 })
 export class Header {
   private authService = inject(AuthService);
+  private themeService = inject(ThemeService);
 
-  isDarkMode = input<boolean>(true);
+  isDarkMode = input<boolean>(this.themeService.isDarkMode());
   themeToggle = output<void>();
 
   onToggleTheme(): void {

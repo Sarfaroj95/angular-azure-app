@@ -1,4 +1,5 @@
-import { Component, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-footer',
@@ -7,5 +8,7 @@ import { Component, input } from '@angular/core';
   styleUrl: './footer.css',
 })
 export class Footer {
-  isDarkMode = input<boolean>(true);
+  private themeService = inject(ThemeService);
+
+  isDarkMode = input<boolean>(this.themeService.isDarkMode());
 }

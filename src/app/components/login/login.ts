@@ -2,6 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +12,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class Login implements OnInit {
   private authService = inject(AuthService);
+  private themeService = inject(ThemeService);
   private router = inject(Router);
 
   username = signal<string>('admin');
@@ -18,7 +20,7 @@ export class Login implements OnInit {
   isLoading = signal<boolean>(false);
   errorMessage = signal<string | null>(null);
   showPassword = signal<boolean>(false);
-  isDarkMode = signal<boolean>(true);
+  isDarkMode = this.themeService.isDarkMode;
 
   ngOnInit(): void {
     // If token already exists in localStorage, automatically route to home
@@ -32,7 +34,7 @@ export class Login implements OnInit {
   }
 
   toggleTheme(): void {
-    this.isDarkMode.update((val) => !val);
+    this.themeService.toggleTheme();
   }
 
   async onSubmit(): Promise<void> {
